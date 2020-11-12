@@ -1,2 +1,6 @@
-# nlp_notes
-Class notes
+
+# Details
+
+## 1101
+1. A simple model example
+
