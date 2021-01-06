@@ -16,6 +16,7 @@ class MyDataset(Dataset):
         self.start_positions = start_positions
         self.end_positions = end_positions
 
+
     def __len__(self):
         return len(self.input_ids)
 
@@ -24,26 +25,13 @@ class MyDataset(Dataset):
 
 
 class DataProcessor(object):
-    def __init__(self, data_dir, max_len=30):
-        self.data_dir = data_dir
-        self.vocab = self._load_vocab()
+    def __init__(self, max_len=30):
         self.max_len = max_len
         self.data = self._load_data()
 
-    def _load_vocab(self):
-        filename = os.path.join(self.data_dir, "vocab.txt")
-        if not os.path.exists(filename):
-            raise FileNotFoundError("The directory should contain the data named {}".format("vocab.txt"))
-        vocab = {}
-        with open(filename, 'r') as file:
-            text = file.read()
-            lines = text.split("\n")
-            for idx, line in enumerate(lines):
-                vocab[line] = idx
-        return vocab
 
     def _load_json_data(self):
-        filename = "./DRCD-master/DRCD_dev.json"
+        filename = "/Users/a5560648/workspace/tutor/week06/DRCD-master/DRCD_dev.json"
         with open(filename, 'r', encoding="utf8") as file:
             data = json.load(file)
             # data is a dict
@@ -84,7 +72,7 @@ class DataProcessor(object):
         # return input_ids, token_type_ids, attention_mask, target_ids
 
     def get_dataset(self):
-        return MyDataset(input_ids=self.data[0], token_type_ids=self.data[1], attention_mask=self.data[2], start_positions=self.data[3], end_position=self.data[4]) 
+        return MyDataset(input_ids=self.data[0], token_type_ids=self.data[1], attention_mask=self.data[2], start_positions=self.data[3], end_positions=self.data[4]) 
 
 if __name__ == "__main__":
     data_processor = DataProcessor("/Users/a5560648/workspace/tutor/data")
